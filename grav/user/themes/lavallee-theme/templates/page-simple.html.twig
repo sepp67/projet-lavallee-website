@@ -1,0 +1,25 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block body_class %}accent-amber{% endblock %}
+
+{% block statusbar_content %}
+  <a href="{{ base_url }}/" class="back"><span class="dot"></span> {{ 'THEME.BACK_HOME'|t }}</a>
+  <div>root@souverainete:~$ cat {{ page.slug }}.md</div>
+{% endblock %}
+
+{% block content %}
+
+  <header class="simple-header">
+    <div class="wrap">
+      <h1>{{ page.title }}</h1>
+      {% if page.header.subtitle %}<p>{{ page.header.subtitle }}</p>{% endif %}
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap prose">
+      {{ page.content|raw }}
+    </div>
+  </section>
+
+{% endblock %}

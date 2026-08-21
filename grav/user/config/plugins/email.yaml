@@ -1,0 +1,6 @@
+from: contact@lavallee.tech
+from_name: 'lavallee.tech'
+to: contact@lavallee.tech
+mailer:
+  engine: smtp
+content_type: text/html

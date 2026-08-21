@@ -1,0 +1,20 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block body_class %}accent-amber{% endblock %}
+{% block statusbar %}{% endblock %}
+
+{% block footer_suffix %}{{ 'THEME.FOOTER_SUFFIX.HOME'|t }}{% endblock %}
+
+{% block content %}
+  {{ page.content|raw }}
+
+  <section class="final-cta" id="contact">
+    <div class="wrap">
+      <h2>{{ 'THEME.HOME_CTA.TITLE'|t }}</h2>
+      <p>{{ 'THEME.HOME_CTA.TEXT'|t }}</p>
+      <div class="contact-form-wrap">
+        {% include 'forms/form.html.twig' with { form: forms('contact-form') } %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

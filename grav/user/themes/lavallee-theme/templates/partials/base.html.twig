@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{{ grav.language.getLanguage()|default('fr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{{ page.title }} — Sébastien Lavallée{% endblock %}</title>
+<meta name="description" content="{% block meta_description %}{{ page.header.metadata.description|default(site.metadata.description) }}{% endblock %}">
+{% for lang_code, route in page.translatedLanguages %}
+<link rel="alternate" hreflang="{{ lang_code }}" href="{{ page.home() ? grav.language.getLanguageURLPrefix(lang_code) ~ '/' : grav.language.getLanguageURLPrefix(lang_code) ~ route }}">
+{% endfor %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;400italic&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url('theme://css/custom.css') }}">
+</head>
+<body class="{% block body_class %}accent-amber{% endblock %}">
+
+{% block site_header %}
+  <div class="site-header">
+    <div class="wrap">
+      <div class="prompt"><span class="dot"></span> <span style="color:var(--paper);font-weight:600;">lavallee.tech</span> <span style="color:var(--paper-dim);">— {{ 'THEME.TAGLINE'|t }}</span></div>
+      <div class="site-header-right">
+        <div class="language-switch">
+          {% for lang_code, route in page.translatedLanguages %}
+            {% set href = page.home() ? grav.language.getLanguageURLPrefix(lang_code) ~ '/' : grav.language.getLanguageURLPrefix(lang_code) ~ route %}
+            <a href="{{ href }}"{% if lang_code == grav.language.getLanguage() %} class="active"{% endif %}>{{ lang_code|upper }}</a>
+          {% endfor %}
+        </div>
+        <nav>
+          <a href="{{ base_url }}/#flagships">{{ 'THEME.NAV.EXPERTISE'|t }}</a>
+          <a href="{{ base_url }}/#notes-techniques">{{ 'THEME.NAV.NOTES'|t }}</a>
+          <a href="{{ base_url }}/#methode">{{ 'THEME.NAV.METHOD'|t }}</a>
+          <a href="{{ base_url }}/#contact">{{ 'THEME.NAV.CONTACT'|t }}</a>
+        </nav>
+        <a href="https://github.com/sepp67" target="_blank" rel="noopener" class="header-github-btn">{{ 'THEME.GITHUB'|t }}</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block statusbar %}
+  <div class="statusbar">
+    <div class="wrap">
+      {% block statusbar_content %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+  <footer>
+    <div class="wrap">
+      <div>© {{ "now"|date("Y") }} Sébastien Lavallée{% block footer_suffix %}{% endblock %}</div>
+      <div class="links">
+        {% block footer_links %}
+          <a href="https://github.com/sepp67" target="_blank" rel="noopener">{{ 'THEME.GITHUB'|t }}</a>
+          <a href="#">{{ 'THEME.FOOTER.LINKEDIN'|t }}</a>
+        {% endblock %}
+        <a href="{{ base_url }}/mentions-legales">{{ 'THEME.FOOTER.LEGAL'|t }}</a>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
+
+</body>
+</html>

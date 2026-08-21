@@ -1,0 +1,210 @@
+---
+title: Sites web reproductibles avec Grav CMS
+template: etude-cas-grav
+metadata:
+  description: "Plutôt qu'un site unique, une base technique découpée en trois dépôts — image applicative, rôle de déploiement, instance de site — pensée pour être réutilisée à chaque nouveau projet."
+---
+
+<header class="case-header">
+  <div class="wrap">
+    <span class="flag-tag">étude de cas — stack: grav cms</span>
+    <h1>Un socle réutilisable pour déployer un site Grav en confiance</h1>
+    <p class="case-sub">Plutôt qu'un site unique, une base technique découpée en trois dépôts — image applicative, rôle de déploiement, instance de site — pensée pour être réutilisée à chaque nouveau projet, sans repartir de zéro.</p>
+
+    <div class="meta-row">
+      <div class="meta-item"><span class="k">Type de projet</span><span class="v">Socle réutilisable, 3 dépôts</span></div>
+      <div class="meta-item"><span class="k">Premier usage</span><span class="v">Site vitrine de gîtes</span></div>
+      <div class="meta-item"><span class="k">Contrainte clé</span><span class="v">Rollback en une commande</span></div>
+      <div class="meta-item"><span class="k">Stack</span><span class="v">Docker · Ansible · Grav</span></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// contexte</span>
+      <h2>Le problème</h2>
+    </div>
+    <div class="prose">
+      <p>Le premier site à déployer était un site vitrine pour des gîtes — besoin simple, budget serré, pas de raison de sortir l'artillerie d'un CMS lourd avec base de données à maintenir. Grav, en fichiers plats, correspondait bien à ce cahier des charges.</p>
+      <p><strong>Le vrai enjeu n'était pas ce premier site en particulier</strong>, mais d'éviter qu'un déploiement Grav reste un cas isolé, réglé à la main. L'objectif dès le départ : construire une base réutilisable, capable d'accueillir n'importe quel nouveau site Grav sans repartir de zéro à chaque fois.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// enjeux</span>
+      <h2>Ce qu'il fallait concilier</h2>
+    </div>
+    <div class="enjeux">
+      <div class="enjeu"><span class="k">Légèreté</span><p>Un CMS en fichiers plats, sans base de données à sauvegarder ni à maintenir dans la durée.</p></div>
+      <div class="enjeu"><span class="k">Réutilisabilité</span><p>Une base technique commune à tous les futurs sites, pas un site jetable pensé pour un seul usage.</p></div>
+      <div class="enjeu"><span class="k">Sécurité</span><p>Aucun secret en clair, même pour un site vitrine à faible enjeu apparent.</p></div>
+      <div class="enjeu"><span class="k">Réversibilité</span><p>Pouvoir revenir à la version précédente d'un site en une seule commande, sans stress.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// architecture</span>
+      <h2>Trois dépôts, trois responsabilités</h2>
+    </div>
+
+    <div class="diagram-box">
+      <svg viewBox="0 0 1000 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g stroke="var(--line-strong)" stroke-width="1">
+          <line x1="170" y1="120" x2="380" y2="60"/>
+          <line x1="170" y1="120" x2="380" y2="180"/>
+          <line x1="500" y1="60" x2="680" y2="60"/>
+          <line x1="500" y1="180" x2="680" y2="60"/>
+          <line x1="680" y1="60" x2="880" y2="40"/>
+          <line x1="680" y1="60" x2="880" y2="100"/>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="var(--paper-dim)">
+          <rect x="60" y="104" width="120" height="32" rx="2" fill="var(--moss-wash)" stroke="var(--moss)"/>
+          <text x="120" y="125" text-anchor="middle" fill="var(--moss)">grav-runtime</text>
+
+          <rect x="380" y="44" width="120" height="30" rx="2" fill="none" stroke="var(--line-strong)"/>
+          <text x="440" y="63" text-anchor="middle">image applicative</text>
+          <rect x="380" y="164" width="120" height="30" rx="2" fill="var(--moss-wash)" stroke="var(--moss)"/>
+          <text x="440" y="183" text-anchor="middle" fill="var(--moss)">ansible-role-grav-site</text>
+
+          <rect x="600" y="44" width="160" height="30" rx="2" fill="none" stroke="var(--line-strong)"/>
+          <text x="680" y="63" text-anchor="middle">rôle de déploiement</text>
+
+          <rect x="800" y="24" width="150" height="30" rx="2" fill="var(--moss-wash)" stroke="var(--moss)"/>
+          <text x="875" y="43" text-anchor="middle" fill="var(--moss)">projet-gites</text>
+          <rect x="800" y="84" width="150" height="30" rx="2" fill="none" stroke="var(--paper)" stroke-dasharray="3 3"/>
+          <text x="875" y="103" text-anchor="middle" fill="var(--paper)">projet-lavalle (à venir)</text>
+        </g>
+      </svg>
+      <div class="diagram-caption">// grav-runtime (base) → ansible-role-grav-site (déploiement) → chaque site (instance) — une seule base, plusieurs sites déployés à l'identique</div>
+    </div>
+
+    <div class="choice-list">
+      <div class="choice">
+        <span class="label">Runtime séparé du site</span>
+        <p><code>grav-runtime</code> fournit l'image applicative de base (PHP, Grav, dépendances) — un site n'a jamais à se soucier de ce niveau technique.</p>
+      </div>
+      <div class="choice">
+        <span class="label">Un rôle, tous les sites</span>
+        <p><code>ansible-role-grav-site</code> déploie n'importe quel site Grav de façon identique — la logique de déploiement n'est écrite qu'une seule fois.</p>
+      </div>
+      <div class="choice">
+        <span class="label">Chaque site reste un simple contenu</span>
+        <p><code>projet-gites</code> — et bientôt <code>projet-lavalle</code> — ne contient que le contenu et la configuration propres au site, rien de la mécanique de déploiement.</p>
+      </div>
+      <div class="choice">
+        <span class="label">Rollback traité comme un déploiement</span>
+        <p>Revenir à la version précédente d'un site utilise exactement le même mécanisme qu'un déploiement normal — pas une procédure d'urgence à part.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// mise en œuvre</span>
+      <h2>Ce qui a été fait</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="step-num">01</span><div><h4>Construction du runtime de base</h4><p>Image applicative Grav packagée et versionnée, indépendante de tout site en particulier.</p></div></div>
+      <div class="step"><span class="step-num">02</span><div><h4>Écriture du rôle de déploiement générique</h4><p>Un rôle Ansible capable de déployer, mettre à jour et faire un rollback de n'importe quel site basé sur ce runtime.</p></div></div>
+      <div class="step"><span class="step-num">03</span><div><h4>Premier site en conditions réelles : projet-gites</h4><p>Validation de la chaîne complète sur un cas concret — contenu, configuration, mise en production.</p></div></div>
+      <div class="step"><span class="step-num">04</span><div><h4>Durcissement et documentation</h4><p>Gestion des secrets, procédure de rollback documentée, tests de bout en bout avant de considérer la base comme réutilisable.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// résultat</span>
+      <h2>Ce que ça change</h2>
+    </div>
+    <div class="result-banner">
+      <p>Le premier site a permis de valider une base technique complète — pas seulement un site livré. Chaque nouveau projet Grav démarre désormais avec l'essentiel déjà résolu : image applicative, déploiement, rollback, secrets.</p>
+      <div class="result-stats">
+        <div class="stat"><span class="num-big">3</span><span class="lbl">dépôts, chacun avec une responsabilité unique</span></div>
+        <div class="stat"><span class="num-big">1</span><span class="lbl">commande pour déployer ou revenir en arrière</span></div>
+        <div class="stat"><span class="num-big">0</span><span class="lbl">base de données à sauvegarder ou maintenir</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// prochaine étape</span>
+      <h2>La base se réutilise déjà</h2>
+    </div>
+    <div class="roadmap-box">
+      <span class="icon">→</span>
+      <div>
+        <h4>projet-lavalle <span class="status-pill">en préparation</span></h4>
+        <p>Un nouveau site Grav va être déployé sur cette même base — celui-là même que vous consultez actuellement. La meilleure preuve qu'un socle réutilisable tient sa promesse, c'est de s'en servir soi-même.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// limites</span>
+      <h2>Ce qui reste hors périmètre</h2>
+    </div>
+    <div class="limites-list">
+      <div class="limite"><span class="marker">—</span><p>La création de contenu et le design éditorial de chaque site restent un travail à part, non couvert par le socle technique.</p></div>
+      <div class="limite"><span class="marker">—</span><p>Le rôle de déploiement ne gère ni le nom de domaine, ni le reverse proxy, ni les certificats TLS — comme pour la stack Matrix, ces couches restent dans l'infrastructure partagée.</p></div>
+      <div class="limite"><span class="marker">—</span><p>Les sites à fort trafic ou nécessitant des fonctionnalités dynamiques avancées (e-commerce, comptes utilisateurs complexes) sortent du périmètre naturel de Grav — un CMS plus lourd serait alors plus pertinent.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// les dépôts</span>
+      <h2>Le socle, en trois dépôts</h2>
+    </div>
+    <div class="repo-grid">
+      <div class="repo-row">
+        <div>
+          <div class="repo-name">grav-runtime</div>
+          <div class="repo-desc">L'image applicative de base — indépendante de tout site en particulier.</div>
+        </div>
+        <a href="https://github.com/sepp67/grav-runtime" target="_blank" rel="noopener" class="btn">Voir sur GitHub →</a>
+      </div>
+      <div class="repo-row">
+        <div>
+          <div class="repo-name">ansible-role-grav-site</div>
+          <div class="repo-desc">Le rôle de déploiement générique — réutilisé par chaque site.</div>
+        </div>
+        <a href="https://github.com/sepp67/ansible-role-grav-site" target="_blank" rel="noopener" class="btn">Voir sur GitHub →</a>
+      </div>
+      <div class="repo-row">
+        <div>
+          <div class="repo-name">projet-gites</div>
+          <div class="repo-desc">Le premier site déployé sur cette base — cas d'usage réel.</div>
+        </div>
+        <a href="https://github.com/sepp67/projet-gites" target="_blank" rel="noopener" class="btn">Voir sur GitHub →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Un site à déployer sans dépendre d'un hébergeur propriétaire ?</h2>
+    <p>Que ce soit un premier site ou une refonte, parlons de vos contraintes avant de parler de solution.</p>
+    <a href="/fr/#contact" class="btn btn-primary">Me contacter →</a>
+  </div>
+</section>

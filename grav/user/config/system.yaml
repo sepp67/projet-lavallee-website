@@ -1,0 +1,11 @@
+home:
+  alias: '/home'
+
+pages:
+  theme: lavallee-theme
+
+languages:
+  supported: [fr, en, de]
+  default_lang: fr
+  include_default_lang: true
+  include_default_lang_file_extension: false

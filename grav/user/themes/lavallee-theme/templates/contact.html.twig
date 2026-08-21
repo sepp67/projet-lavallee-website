@@ -1,0 +1,25 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block title %}{{ 'THEME.CONTACT.TITLE'|t }} | Sébastien Lavallée{% endblock %}
+{% block body_class %}accent-amber{% endblock %}
+
+{% block statusbar_content %}
+  <a href="{{ base_url }}/" class="back"><span class="dot"></span> {{ 'THEME.BACK_HOME'|t }}</a>
+  <div>root@souverainete:~$ cat contact.md</div>
+{% endblock %}
+
+{% block content %}
+
+  <header class="simple-header">
+    <div class="wrap">
+      <h1>{{ 'THEME.CONTACT.TITLE'|t }}</h1>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap" style="max-width:560px;">
+      {% include 'forms/form.html.twig' with { form: forms('contact-form') } %}
+    </div>
+  </section>
+
+{% endblock %}

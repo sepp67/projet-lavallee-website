@@ -1,0 +1,29 @@
+THEME:
+  TAGLINE: "Open Source Infrastrukturen"
+  NAV:
+    EXPERTISE: "Kompetenzbereiche"
+    NOTES: "Technische Notizen"
+    METHOD: "Methode"
+    CONTACT: "Kontakt"
+  GITHUB: "GitHub"
+  FOOTER:
+    HOME: "Startseite"
+    LEGAL: "Impressum"
+    LINKEDIN: "LinkedIn"
+    MATRIX_CASE_STUDY: "Fallstudie Matrix"
+    MOBILE_CASE_STUDY: "Fallstudie mobile Flotte"
+  FOOTER_SUFFIX:
+    HOME: " — diese Website läuft auf einem der oben beschriebenen Stacks."
+    MATRIX: " — Fallstudie Matrix"
+    MOBILE: " — Fallstudie mobile Flotte"
+    GRAV: " — Fallstudie Grav CMS"
+    NOTES: " — technische Notizen"
+  ARTICLE:
+    TAG: "technische Notizen"
+    PUBLISHED: "Veröffentlicht am"
+  CONTACT:
+    TITLE: "Kontakt"
+  BACK_HOME: "← zurück zur Startseite"
+  HOME_CTA:
+    TITLE: "Ein Projekt für digitale Souveränität im Kopf?"
+    TEXT: "Ob es darum geht, ein proprietäres Abonnement zu verlassen, eine Flotte souveräner Endgeräte auszurollen, oder Ordnung in eine ohne Plan gewachsene Infrastruktur zu bringen — lassen Sie uns darüber sprechen."

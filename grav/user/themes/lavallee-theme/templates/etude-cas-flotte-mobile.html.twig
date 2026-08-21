@@ -1,0 +1,17 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block body_class %}accent-blue{% endblock %}
+
+{% block statusbar_content %}
+  <a href="{{ base_url }}/" class="back"><span class="dot"></span> {{ 'THEME.BACK_HOME'|t }}</a>
+  <div>root@souverainete:~$ cat etude-de-cas/flotte-mobile.md</div>
+{% endblock %}
+
+{% block footer_suffix %}{{ 'THEME.FOOTER_SUFFIX.MOBILE'|t }}{% endblock %}
+{% block footer_links %}
+  <a href="{{ base_url }}/etudes-de-cas/matrix">{{ 'THEME.FOOTER.MATRIX_CASE_STUDY'|t }}</a>
+{% endblock %}
+
+{% block content %}
+  {{ page.content|raw }}
+{% endblock %}

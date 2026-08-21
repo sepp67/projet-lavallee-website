@@ -1,0 +1,6 @@
+name: Contact
+version: 0.1.0
+description: >
+  Formulaire de contact du site : anti-spam (honeypot) et chargement des
+  secrets SMTP depuis user/config/email-private.php (jamais commité).
+enabled: true

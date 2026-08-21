@@ -1,0 +1,31 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block title %}{{ page.title }} | Sébastien Lavallée{% endblock %}
+{% block meta_description %}{{ page.header.subtitle|default(site.metadata.description) }}{% endblock %}
+{% block body_class %}accent-amber{% endblock %}
+
+{% block statusbar_content %}
+  <a href="{{ base_url }}/" class="back"><span class="dot"></span> {{ 'THEME.BACK_HOME'|t }}</a>
+  <div>root@souverainete:~$ cat articles/{{ page.slug }}.md</div>
+{% endblock %}
+
+{% block footer_suffix %}{{ 'THEME.FOOTER_SUFFIX.NOTES'|t }}{% endblock %}
+
+{% block content %}
+
+  <header class="case-header">
+    <div class="wrap">
+      <span class="flag-tag">{{ 'THEME.ARTICLE.TAG'|t }}</span>
+      <h1>{{ page.title }}</h1>
+      {% if page.header.subtitle %}<p class="case-sub">{{ page.header.subtitle }}</p>{% endif %}
+      {% if page.header.published %}<div class="article-date">{{ 'THEME.ARTICLE.PUBLISHED'|t }} {{ page.header.published }}</div>{% endif %}
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap prose">
+      {{ page.content|raw }}
+    </div>
+  </section>
+
+{% endblock %}

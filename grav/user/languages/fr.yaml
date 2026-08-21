@@ -1,0 +1,29 @@
+THEME:
+  TAGLINE: "Infrastructures Open Source"
+  NAV:
+    EXPERTISE: "Domaines d'expertise"
+    NOTES: "Notes techniques"
+    METHOD: "Méthode"
+    CONTACT: "Contact"
+  GITHUB: "GitHub"
+  FOOTER:
+    HOME: "Accueil"
+    LEGAL: "Mentions légales"
+    LINKEDIN: "LinkedIn"
+    MATRIX_CASE_STUDY: "Étude de cas Matrix"
+    MOBILE_CASE_STUDY: "Étude de cas flotte mobile"
+  FOOTER_SUFFIX:
+    HOME: " — ce site tourne sur l'une des stacks décrites ci-dessus."
+    MATRIX: " — étude de cas Matrix"
+    MOBILE: " — étude de cas flotte mobile"
+    GRAV: " — étude de cas Grav CMS"
+    NOTES: " — notes techniques"
+  ARTICLE:
+    TAG: "notes techniques"
+    PUBLISHED: "Publié le"
+  CONTACT:
+    TITLE: "Contact"
+  BACK_HOME: "← retour à l'accueil"
+  HOME_CTA:
+    TITLE: "Un projet de souveraineté numérique en tête ?"
+    TEXT: "Que ce soit pour sortir d'un abonnement propriétaire, déployer une flotte de terminaux maîtrisés, ou remettre de l'ordre dans une infra qui a grandi sans plan — parlons-en."

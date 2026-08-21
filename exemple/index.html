@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sébastien Lavallée — Souveraineté numérique, déployée avec méthode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;400italic&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-950:#0d1117;
+    --ink-900:#12161d;
+    --ink-800:#1a2028;
+    --ink-700:#252c36;
+    --paper:#f1ede4;
+    --paper-dim:#c9c4b8;
+    --muted:#8891a0;
+    --amber:#e8a33d;
+    --amber-dim:#8c6a2f;
+    --blue:#6fa3c2;
+    --blue-dim:#3f6478;
+    --line:rgba(241,237,228,0.12);
+    --line-strong:rgba(241,237,228,0.22);
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --sans:'Inter', system-ui, sans-serif;
+    --radius:3px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--ink-950);
+    color:var(--paper);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  ::selection{ background:var(--amber); color:var(--ink-950); }
+  :focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- status bar ---------- */
+  .statusbar{
+    border-bottom:1px solid var(--line);
+    background:var(--ink-900);
+  }
+  .statusbar .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:44px; font-family:var(--mono); font-size:12px; color:var(--paper-dim);
+  }
+  .statusbar .prompt{ display:flex; align-items:center; gap:8px; }
+  .statusbar .dot{ width:7px; height:7px; border-radius:50%; background:var(--amber); }
+  .statusbar nav{ display:flex; gap:22px; }
+  .statusbar nav a{ text-decoration:none; color:var(--paper-dim); transition:color .15s ease; }
+  .statusbar nav a:hover{ color:var(--amber); }
+  @media (max-width:640px){ .statusbar nav{ display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:96px 0 72px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--amber); display:inline-flex; align-items:center; gap:8px; margin-bottom:22px;
+  }
+  .eyebrow::before{ content:'//'; color:var(--amber-dim); }
+  h1{
+    font-family:var(--mono); font-weight:700;
+    font-size:clamp(32px, 5.4vw, 58px); line-height:1.08; letter-spacing:-0.01em;
+    margin:0 0 22px; max-width:15ch;
+  }
+  .hero-sub{
+    font-size:18px; color:var(--paper-dim); max-width:52ch; margin:0 0 36px;
+  }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13px; letter-spacing:.02em;
+    padding:13px 22px; border-radius:var(--radius); text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px; transition:all .15s ease;
+    border:1px solid transparent;
+  }
+  .btn-primary{ background:var(--amber); color:var(--ink-950); font-weight:600; }
+  .btn-primary:hover{ background:#f0b357; transform:translateY(-1px); }
+  .btn-ghost{ border-color:var(--line-strong); color:var(--paper); }
+  .btn-ghost:hover{ border-color:var(--amber); color:var(--amber); }
+
+  /* signature: network diagram */
+  .diagram{ margin-top:64px; }
+  .diagram svg{ width:100%; height:auto; display:block; }
+  .diagram-caption{
+    font-family:var(--mono); font-size:11px; color:var(--muted);
+    margin-top:10px; letter-spacing:.04em;
+  }
+  .pulse{ animation:travel 5.5s linear infinite; }
+  @media (prefers-reduced-motion:reduce){ .pulse{ animation:none; } }
+  @keyframes travel{
+    0%{ offset-distance:0%; opacity:0; }
+    5%{ opacity:1; }
+    95%{ opacity:1; }
+    100%{ offset-distance:100%; opacity:0; }
+  }
+
+  /* ---------- sections generic ---------- */
+  section{ padding:80px 0; border-bottom:1px solid var(--line); }
+  .section-head{ max-width:62ch; margin-bottom:44px; }
+  .section-head h2{
+    font-family:var(--mono); font-size:26px; margin:0 0 14px; letter-spacing:-0.01em;
+  }
+  .section-head p{ color:var(--paper-dim); font-size:16px; margin:0; }
+
+  /* ---------- problem ---------- */
+  .problem p{ font-size:17px; color:var(--paper-dim); max-width:66ch; }
+  .problem strong{ color:var(--paper); font-weight:600; }
+
+  /* ---------- flagships ---------- */
+  .flagships{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+  @media (max-width:800px){ .flagships{ grid-template-columns:1fr; } }
+  .flag{
+    background:var(--ink-900); padding:40px 34px; position:relative;
+  }
+  .flag::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  }
+  .flag.matrix::before{ background:var(--amber); }
+  .flag.mobile::before{ background:var(--blue); }
+  .flag-tag{
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    padding:4px 9px; border-radius:2px; display:inline-block; margin-bottom:20px;
+  }
+  .flag.matrix .flag-tag{ background:rgba(232,163,61,0.12); color:var(--amber); }
+  .flag.mobile .flag-tag{ background:rgba(111,163,194,0.12); color:var(--blue); }
+  .flag h3{ font-size:23px; margin:0 0 14px; font-weight:600; letter-spacing:-0.01em; }
+  .flag p{ color:var(--paper-dim); font-size:15px; margin:0 0 24px; }
+  .flag-link{
+    font-family:var(--mono); font-size:13px; text-decoration:none; display:inline-flex;
+    align-items:center; gap:6px; font-weight:500; transition:gap .15s ease;
+  }
+  .flag.matrix .flag-link{ color:var(--amber); }
+  .flag.mobile .flag-link{ color:var(--blue); }
+  .flag-link:hover{ gap:10px; }
+  .flag-note{
+    grid-column:1 / -1; background:var(--ink-950); padding:22px 34px;
+    font-family:var(--mono); font-size:13px; color:var(--muted); border-top:1px solid var(--line);
+  }
+
+  /* ---------- other projects ---------- */
+  .others{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:640px){ .others{ grid-template-columns:1fr; } }
+  .other-card{
+    border:1px solid var(--line); border-radius:var(--radius); padding:22px 24px;
+    text-decoration:none; color:var(--paper); transition:border-color .15s ease;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+  }
+  .other-card:hover{ border-color:var(--line-strong); }
+  .other-card span.name{ font-size:15px; font-weight:500; }
+  .other-card span.arrow{ font-family:var(--mono); color:var(--muted); }
+
+  /* ---------- method ---------- */
+  .method{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+  @media (max-width:700px){ .method{ grid-template-columns:1fr; } }
+  .method-item{ background:var(--ink-900); padding:30px 28px; }
+  .method-item .key{
+    font-family:var(--mono); font-size:11px; color:var(--amber-dim); letter-spacing:.08em;
+    text-transform:uppercase; margin-bottom:10px; display:block;
+  }
+  .method-item h4{ margin:0 0 10px; font-size:16.5px; font-weight:600; }
+  .method-item p{ margin:0; color:var(--paper-dim); font-size:14.5px; }
+
+  /* ---------- proof ---------- */
+  .proof{ display:flex; justify-content:space-between; align-items:center; gap:32px; flex-wrap:wrap; }
+  .proof p{ color:var(--paper-dim); font-size:16px; max-width:52ch; margin:0; }
+  .proof .btn{ flex-shrink:0; }
+
+  /* ---------- final cta ---------- */
+  .final-cta{ text-align:center; padding:96px 0; border-bottom:none; }
+  .final-cta h2{ font-family:var(--mono); font-size:clamp(24px,3.6vw,36px); margin:0 0 16px; }
+  .final-cta p{ color:var(--paper-dim); font-size:16px; max-width:52ch; margin:0 auto 32px; }
+
+  /* ---------- footer ---------- */
+  footer{ padding:32px 0 44px; }
+  footer .wrap{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+  footer a{ text-decoration:none; color:var(--muted); }
+  footer a:hover{ color:var(--amber); }
+  footer .links{ display:flex; gap:18px; }
+</style>
+</head>
+<body>
+
+  <div class="statusbar">
+    <div class="wrap">
+      <div class="prompt"><span class="dot"></span> root@souverainete:~$ status --all: <span style="color:var(--paper)">up</span></div>
+      <nav>
+        <a href="#flagships">Études de cas</a>
+        <a href="#methode">Méthode</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">consultant infrastructure open source</div>
+      <h1>La souveraineté numérique, déployée avec méthode.</h1>
+      <p class="hero-sub">Je conçois et industrialise des infrastructures open source — communication, fichiers, terminaux mobiles — pour les entreprises, associations et collectivités qui veulent reprendre la main sur leurs outils numériques, sans dépendre de Google, Microsoft ou Slack.</p>
+      <div class="cta-row">
+        <a href="#flagships" class="btn btn-primary">Voir mes projets phares →</a>
+        <a href="#contact" class="btn btn-ghost">Me contacter</a>
+      </div>
+
+      <div class="diagram">
+        <svg viewBox="0 0 1040 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- baseline nodes -->
+          <g stroke="var(--line-strong)" stroke-width="1">
+            <path id="path1" d="M60,180 C220,180 220,60 380,60"/>
+            <path d="M380,60 C520,60 520,150 660,150"/>
+            <path d="M660,150 C800,150 800,70 980,70"/>
+            <path d="M380,60 C420,110 420,150 380,180"/>
+            <path d="M380,180 L200,180"/>
+          </g>
+          <!-- traveling pulse -->
+          <circle r="4" fill="var(--amber)" class="pulse" style="offset-path:path('M60,180 C220,180 220,60 380,60 C520,60 520,150 660,150 C800,150 800,70 980,70');"/>
+
+          <!-- nodes -->
+          <g font-family="JetBrains Mono, monospace" font-size="11" fill="var(--paper-dim)">
+            <circle cx="60" cy="180" r="5" fill="var(--muted)"/>
+            <text x="60" y="204" text-anchor="middle">utilisateur</text>
+
+            <circle cx="200" cy="180" r="5" fill="var(--blue)"/>
+            <text x="200" y="204" text-anchor="middle" fill="var(--blue)">/e/OS</text>
+
+            <circle cx="380" cy="60" r="6" fill="var(--amber)"/>
+            <text x="380" y="40" text-anchor="middle" fill="var(--amber)">matrix-synapse</text>
+
+            <circle cx="380" cy="180" r="5" fill="var(--blue)"/>
+            <text x="380" y="204" text-anchor="middle" fill="var(--blue)">nextcloud</text>
+
+            <circle cx="660" cy="150" r="5" fill="var(--muted)"/>
+            <text x="660" y="174" text-anchor="middle">reverse proxy</text>
+
+            <circle cx="980" cy="70" r="6" fill="var(--paper)"/>
+            <text x="980" y="50" text-anchor="middle" fill="var(--paper)">infra maîtrisée</text>
+          </g>
+        </svg>
+        <div class="diagram-caption">// séparation des responsabilités — chaque brique reste remplaçable indépendamment</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="problem">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Le problème</h2>
+      </div>
+      <p>Sortir des plateformes propriétaires est devenu un enjeu concret — RGPD, dépendance stratégique, coûts qui grimpent. Mais remplacer Slack, Teams ou un MDM par une alternative open source ne suffit pas si elle est <strong>bricolée à la main</strong>, mal sécurisée, ou impossible à maintenir dans la durée.</p>
+      <p>Je fais le travail qui transforme un outil open source prometteur en <strong>infrastructure fiable</strong> : automatisée, reproductible, documentée, et qui reste maintenable après mon départ.</p>
+    </div>
+  </section>
+
+  <section id="flagships">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Mes deux domaines d'expertise</h2>
+        <p>Deux stacks, une même méthode — et une combinaison possible pour les organisations qui veulent aller jusqu'au bout de leur souveraineté numérique.</p>
+      </div>
+
+      <div class="flagships">
+        <div class="flag matrix">
+          <span class="flag-tag">stack: matrix</span>
+          <h3>Communication souveraine avec Matrix</h3>
+          <p>Infrastructure Matrix/Synapse complète — messagerie chiffrée, ponts vers WhatsApp, Telegram, Signal — pour sortir de Slack ou Teams sans perdre le contact avec vos interlocuteurs. Architecture multi-serveurs, séparation stricte des responsabilités, prête pour l'authentification forte.</p>
+          <a href="#" class="flag-link">Voir l'étude de cas Matrix →</a>
+        </div>
+        <div class="flag mobile">
+          <span class="flag-tag">stack: /e/os + nextcloud</span>
+          <h3>Flotte mobile souveraine</h3>
+          <p>Process d'enrôlement de smartphones reconditionnés sous /e/OS, connectés à votre Nextcloud — fichiers, contacts, agenda synchronisés, sans dépendance à Google. Une alternative crédible aux MDM propriétaires pour maîtriser vos terminaux de bout en bout.</p>
+          <a href="#" class="flag-link">Voir l'étude de cas flotte mobile →</a>
+        </div>
+        <div class="flag-note">// ces deux stacks se combinent naturellement : une organisation qui adopte Matrix pour sa communication adopte souvent, dans la foulée, une flotte de terminaux souverains pour la porter partout.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Autres réalisations</h2>
+        <p>La même rigueur, appliquée à d'autres types de projets.</p>
+      </div>
+      <div class="others">
+        <a href="#" class="other-card"><span class="name">Sites web reproductibles avec Grav CMS</span><span class="arrow">→</span></a>
+        <a href="#" class="other-card"><span class="name">Application de facturation électronique</span><span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="methode">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Comment je travaille</h2>
+      </div>
+      <div class="method">
+        <div class="method-item">
+          <span class="key">principe.01</span>
+          <h4>Chaque brique fait une seule chose</h4>
+          <p>Je sépare toujours le rôle applicatif, le déploiement et l'infrastructure partagée. Je peux remplacer un composant sans casser le reste.</p>
+        </div>
+        <div class="method-item">
+          <span class="key">principe.02</span>
+          <h4>Rien n'est fait deux fois de la même manière</h4>
+          <p>Chaque déploiement est automatisé et rejouable à l'identique — sur un nouveau serveur, en cas de panne, ou pour dupliquer une installation.</p>
+        </div>
+        <div class="method-item">
+          <span class="key">principe.03</span>
+          <h4>Aucun secret ne traîne en clair</h4>
+          <p>Mots de passe, tokens, certificats : toujours chiffrés, jamais commités dans un dépôt de code en clair.</p>
+        </div>
+        <div class="method-item">
+          <span class="key">principe.04</span>
+          <h4>Je ne vends que ce que je maîtrise</h4>
+          <p>Si une brique sort de mon périmètre réel, je le dis clairement — plutôt que de m'improviser expert sur un sujet que je ne maîtrise pas à 100 %.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap proof">
+      <p><strong style="color:var(--paper)">Voir le travail, pas juste en entendre parler.</strong><br>Tout ce que je livre est documenté et, quand c'est possible, publié en open source.</p>
+      <a href="#" class="btn btn-ghost">Voir mes projets sur GitHub →</a>
+    </div>
+  </section>
+
+  <section class="final-cta" id="contact">
+    <div class="wrap">
+      <h2>Un projet de souveraineté numérique en tête ?</h2>
+      <p>Que ce soit pour sortir d'un abonnement propriétaire, déployer une flotte de terminaux maîtrisés, ou remettre de l'ordre dans une infra qui a grandi sans plan — parlons-en.</p>
+      <a href="#" class="btn btn-primary">Me contacter →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div>© 2026 Sébastien Lavallée — ce site tourne sur l'une des stacks décrites ci-dessus.</div>
+      <div class="links">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Mentions légales</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

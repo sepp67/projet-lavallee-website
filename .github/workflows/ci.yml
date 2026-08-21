@@ -1,0 +1,38 @@
+name: CI — build and smoke tests
+
+# Distinct de release.yml : ce workflow ne publie jamais sur GHCR, il ne
+# fait que valider le build et le comportement de l'image sur chaque push
+# et chaque pull request. Inerte tant que ce dépôt n'a pas de remote Git.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  test:
+    name: Build and run fast test scripts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Log in to GitHub Container Registry (lecture seule, pour tirer grav-runtime)
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        run: sh tests/test-build.sh
+
+      - name: Startup, healthy, HTTP 200
+        run: sh tests/test-startup.sh
+
+      - name: Application presence (theme, pages, assets)
+        run: sh tests/test-app-presence.sh
+
+      # test-persistence.sh reste documenté et exécutable localement : scénario
+      # à deux temps plus long, non bloquant pour ce workflow.

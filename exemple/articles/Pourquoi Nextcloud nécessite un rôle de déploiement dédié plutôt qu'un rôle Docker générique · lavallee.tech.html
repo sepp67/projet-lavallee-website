@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-lt-installed="true" class=" icwmpwfc idc0_350"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>(function(){try{var a=localStorage.getItem('lavallee-theme')||'sobre';document.documentElement.setAttribute('data-theme',a)}catch(a){}})()</script>
+<title>Pourquoi Nextcloud nécessite un rôle de déploiement dédié plutôt qu'un rôle Docker générique · lavallee.tech</title>
+<meta name="description" content="Retour d'expérience sur le déploiement de Nextcloud dans un environnement de staging géré par Ansible et Docker.">
+<link rel="stylesheet" href="Pourquoi%20Nextcloud%20n%C3%A9cessite%20un%20r%C3%B4le%20de%20d%C3%A9ploiement%20d%C3%A9di%C3%A9%20plut%C3%B4t%20qu'un%20r%C3%B4le%20Docker%20g%C3%A9n%C3%A9rique%20%C2%B7%20lavallee.tech_files/style_r5Cy.css">
+<link rel="icon" href="https://lavallee.tech/assets/logo.png">
+</head>
+<body>
+<header>
+<div class="container nav">
+<a class="brand" href="https://lavallee.tech/fr/" aria-label="lavallee.tech home">
+<span>lavallee.tech</span>
+<span>Infrastructure Open Source</span>
+</a>
+<nav class="nav-links" aria-label="Main navigation">
+<a href="https://lavallee.tech/fr/#infrastructure">Infrastructure</a>
+<a href="https://lavallee.tech/fr/#projects">Projets</a>
+<a href="https://lavallee.tech/fr/articles/">Notes techniques</a>
+<a href="https://lavallee.tech/fr/#contact">Contact</a>
+</nav>
+<div class="language-switch" aria-label="Language switcher">
+<a href="https://lavallee.tech/en/">EN</a>
+<a href="https://lavallee.tech/de/">DE</a>
+<a href="https://lavallee.tech/fr/" class="active">FR</a>
+</div>
+<div class="theme-switch" role="group" aria-label="Sélecteur de thème">
+<button type="button" class="theme-switch__btn" data-theme-btn="sobre" aria-pressed="false">
+Sobre
+</button>
+<button type="button" class="theme-switch__btn" data-theme-btn="light" aria-pressed="true">
+Clair
+</button>
+</div>
+<a class="button" href="https://github.com/sepp67" target="_blank" rel="noreferrer">GitHub</a>
+</div>
+</header>
+<main id="top">
+<section class="section">
+<div class="container">
+<article class="card">
+<div class="meta">
+Published on June 8, 2026
+</div>
+<h1>Pourquoi Nextcloud nécessite un rôle de déploiement dédié plutôt qu'un rôle Docker générique</h1>
+<p class="lead">Retour d'expérience sur le déploiement de Nextcloud dans un environnement de staging géré par Ansible et Docker.</p>
+<div class="article-content">
+<p>Dans le cadre de la restructuration de mon infrastructure, j’ai 
+récemment mis en place un environnement de staging séparé de la 
+production. L’objectif était simple : valider les nouvelles versions des
+ applications avant leur déploiement en production.</p>
+<p>La plupart de mes applications suivent le même modèle :</p>
+<ul>
+<li>Récupérer une image Docker depuis GitHub Container Registry.</li>
+<li>Exposer un port HTTP.</li>
+<li>Configurer le proxy inverse.</li>
+<li>Vérifier le bon fonctionnement de l’application.</li>
+</ul>
+<p>Cette approche fonctionne parfaitement pour :</p>
+<ul>
+<li>Grav CMS</li>
+<li>Webcam Stream</li>
+<li>Facturier Demo</li>
+<li>Sites web statiques</li>
+</ul>
+<p>Pour cela, j’ai créé un rôle Ansible générique nommé :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">staging_docker_app
+</code></pre></div><p>Ce rôle effectue simplement :</p>
+<ol>
+<li>Le téléchargement de l’image.</li>
+<li>La création du conteneur.</li>
+<li>L’exposition du port.</li>
+<li>Le démarrage du service.</li>
+</ol>
+<p>Pour les applications simples, cette approche est efficace, réutilisable et facile à maintenir.</p>
+<p>Cependant, Nextcloud a rapidement démontré les limites de cette méthode.</p>
+<h2 id="lhypothèse-initiale">L’hypothèse initiale</h2>
+<p>Au départ, j’ai supposé que Nextcloud pouvait être déployé comme n’importe quelle autre application.</p>
+<p>La configuration ressemblait à ceci :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">app_name</span>: <span style="color:#ae81ff">nextcloud</span>
+<span style="color:#f92672">app_image</span>: <span style="color:#ae81ff">ghcr.io/sepp67/ansible-role-nextcloud-stack:latest</span>
+<span style="color:#f92672">app_container_name</span>: <span style="color:#ae81ff">nextcloud-staging</span>
+<span style="color:#f92672">app_host_port</span>: <span style="color:#ae81ff">18080</span>
+<span style="color:#f92672">app_container_port</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><p>Le déploiement semblait réussir.</p>
+<p>Le conteneur démarrait.</p>
+<p>Le proxy fonctionnait.</p>
+<p>Mais l’application n’était pas réellement opérationnelle.</p>
+<h2 id="comprendre-le-problème">Comprendre le problème</h2>
+<p>Contrairement à une application web classique, Nextcloud n’est pas constitué d’un seul service.</p>
+<p>Mon déploiement se compose de :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Nextcloud Stack
+├── Nextcloud
+├── PostgreSQL
+├── Redis
+└── Cron
+</code></pre></div><p>Le fichier Docker Compose l’illustre clairement :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">services</span>:
+  <span style="color:#f92672">db</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">postgres</span>
+
+  <span style="color:#f92672">redis</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">redis</span>
+
+  <span style="color:#f92672">app</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nextcloud</span>
+
+  <span style="color:#f92672">cron</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nextcloud</span>
+</code></pre></div><p>Le conteneur principal dépend :</p>
+<ul>
+<li>de PostgreSQL pour le stockage des données ;</li>
+<li>de Redis pour le cache et le verrouillage des fichiers ;</li>
+<li>des tâches Cron pour les traitements en arrière-plan.</li>
+</ul>
+<p>Démarrer uniquement le conteneur Nextcloud conduit donc à un déploiement incomplet.</p>
+<h2 id="une-différence-darchitecture-fondamentale">Une différence d’architecture fondamentale</h2>
+<p>Mon rôle générique reposait sur l’hypothèse :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Une application = Un conteneur
+</code></pre></div><p>Nextcloud suit un modèle différent :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Une application = Plusieurs services coopérants
+</code></pre></div><p>Il s’agit d’un schéma de déploiement totalement différent.</p>
+<p>Essayer de gérer ces deux modèles dans un même rôle conduit rapidement à :</p>
+<ul>
+<li>de nombreuses conditions particulières ;</li>
+<li>une logique difficile à suivre ;</li>
+<li>une maintenance plus complexe ;</li>
+<li>une perte de lisibilité.</li>
+</ul>
+<p>Le rôle générique cesse alors d’être réellement générique.</p>
+<h2 id="la-bonne-solution">La bonne solution</h2>
+<p>Plutôt que de compliquer le rôle existant, j’ai créé un rôle dédié :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">staging_nextcloud_stack
+</code></pre></div><p>Les responsabilités sont désormais clairement séparées.</p>
+<h3 id="rôle-générique">Rôle générique</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">staging_docker_app
+</code></pre></div><p>Utilisé pour :</p>
+<ul>
+<li>Grav</li>
+<li>Webcam Stream</li>
+<li>Facturier Demo</li>
+<li>Sites web statiques</li>
+</ul>
+<p>Responsabilités :</p>
+<ul>
+<li>télécharger l’image ;</li>
+<li>créer le conteneur ;</li>
+<li>exposer le port ;</li>
+<li>démarrer le service.</li>
+</ul>
+<h3 id="rôle-dédié-nextcloud">Rôle dédié Nextcloud</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">staging_nextcloud_stack
+</code></pre></div><p>Responsabilités :</p>
+<ul>
+<li>créer les répertoires persistants ;</li>
+<li>générer les variables d’environnement ;</li>
+<li>générer le fichier Docker Compose ;</li>
+<li>déployer PostgreSQL ;</li>
+<li>déployer Redis ;</li>
+<li>déployer Nextcloud ;</li>
+<li>déployer Cron ;</li>
+<li>démarrer l’ensemble de la pile.</li>
+</ul>
+<h2 id="réutiliser-les-composants-existants">Réutiliser les composants existants</h2>
+<p>Une autre leçon importante concerne la réutilisation.</p>
+<p>Mon infrastructure disposait déjà d’un rôle :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">docker_host
+</code></pre></div><p>chargé d’installer :</p>
+<ul>
+<li>Docker CE ;</li>
+<li>Docker Compose Plugin ;</li>
+<li>Buildx ;</li>
+<li>Containerd.</li>
+</ul>
+<p>Au départ, j’avais tenté d’installer Docker directement depuis le rôle Nextcloud.</p>
+<p>Cela créait des responsabilités redondantes.</p>
+<p>L’architecture finale est devenue :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">docker_host
+        │
+        ▼
+staging_nextcloud_stack
+</code></pre></div><p>Le rôle Docker gère Docker.</p>
+<p>Le rôle Nextcloud gère Nextcloud.</p>
+<h2 id="architecture-finale">Architecture finale</h2>
+<p>L’environnement de staging se présente désormais ainsi :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">vm-proxy-staging
+│
+├── lavallee.staging.local
+├── facturier.staging.local
+├── grav.staging.local
+├── webcam.staging.local
+└── nextcloud.staging.local
+</code></pre></div><p>Les applications sont déployées sur des machines virtuelles dédiées.</p>
+<p>La VM Nextcloud contient :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">vm-nextcloud-staging
+│
+├── PostgreSQL
+├── Redis
+├── Nextcloud
+└── Cron
+</code></pre></div><p>L’ensemble est déployé automatiquement avec Ansible et Docker Compose.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>L’objectif de l’automatisation n’est pas de rendre tous les déploiements identiques.</p>
+<p>L’objectif est de rendre chaque déploiement prévisible, maintenable et compréhensible.</p>
+<p>Pour les applications simples, un rôle générique est parfaitement adapté.</p>
+<p>Pour les applications composées de plusieurs services, comme 
+Nextcloud, un rôle dédié permet d’obtenir une architecture plus propre 
+et plus durable.</p>
+<p>La leçon est simple :</p>
+<blockquote>
+<p>Les rôles génériques doivent rester génériques. Les applications complexes méritent leur propre logique de déploiement.</p>
+</blockquote>
+</div>
+</article>
+</div>
+</section>
+</main>
+<footer>
+<div class="container footer-inner">
+<span>© 2026 lavallee.tech</span>
+<span>Linux • Open Source • Ingénierie infrastructure</span>
+</div>
+</footer>
+<script src="Pourquoi%20Nextcloud%20n%C3%A9cessite%20un%20r%C3%B4le%20de%20d%C3%A9ploiement%20d%C3%A9di%C3%A9%20plut%C3%B4t%20qu'un%20r%C3%B4le%20Docker%20g%C3%A9n%C3%A9rique%20%C2%B7%20lavallee.tech_files/theme-switcher_r5Cy.js" defer="defer"></script>
+
+</body></html>

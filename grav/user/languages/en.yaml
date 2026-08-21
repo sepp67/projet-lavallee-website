@@ -1,0 +1,29 @@
+THEME:
+  TAGLINE: "Open Source Infrastructures"
+  NAV:
+    EXPERTISE: "Expertise"
+    NOTES: "Technical notes"
+    METHOD: "Method"
+    CONTACT: "Contact"
+  GITHUB: "GitHub"
+  FOOTER:
+    HOME: "Home"
+    LEGAL: "Legal notice"
+    LINKEDIN: "LinkedIn"
+    MATRIX_CASE_STUDY: "Matrix case study"
+    MOBILE_CASE_STUDY: "Mobile fleet case study"
+  FOOTER_SUFFIX:
+    HOME: " — this site runs on one of the stacks described above."
+    MATRIX: " — Matrix case study"
+    MOBILE: " — mobile fleet case study"
+    GRAV: " — Grav CMS case study"
+    NOTES: " — technical notes"
+  ARTICLE:
+    TAG: "technical notes"
+    PUBLISHED: "Published on"
+  CONTACT:
+    TITLE: "Contact"
+  BACK_HOME: "← back to home"
+  HOME_CTA:
+    TITLE: "A digital sovereignty project in mind?"
+    TEXT: "Whether it's leaving a proprietary subscription, rolling out a fleet of sovereign devices, or bringing order to an infrastructure that grew without a plan — let's talk about it."
