@@ -6,7 +6,19 @@
 {% block footer_suffix %}{{ 'THEME.FOOTER_SUFFIX.HOME'|t }}{% endblock %}
 
 {% block content %}
-  {{ page.content|raw }}
+  {% set articles_page = page.find('/articles') %}
+  {% set latest_articles = articles_page.children.published.order('header.date', 'desc')|slice(0, 3) %}
+  {% set notes_techniques %}
+    <div class="notes-grid">
+      {% for article in latest_articles %}
+        {% include 'partials/article-card.html.twig' with { article: article } %}
+      {% endfor %}
+    </div>
+    <div class="notes-see-all">
+      <a href="{{ articles_page.url }}" class="flag-link">{{ 'THEME.NOTES.SEE_ALL'|t }}</a>
+    </div>
+  {% endset %}
+  {{ page.content|replace({'<!-- notes-techniques:latest-articles -->': notes_techniques})|raw }}
 
   <section class="final-cta" id="contact">
     <div class="wrap">

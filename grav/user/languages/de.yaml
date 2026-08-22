@@ -20,7 +20,11 @@ THEME:
     NOTES: " — technische Notizen"
   ARTICLE:
     TAG: "technische Notizen"
+    CARD_TAG: "artikel"
+    READ_MORE: "Artikel lesen →"
     PUBLISHED: "Veröffentlicht am"
+  NOTES:
+    SEE_ALL: "Alle Artikel ansehen →"
   CONTACT:
     TITLE: "Kontakt"
   BACK_HOME: "← zurück zur Startseite"

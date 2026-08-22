@@ -109,26 +109,7 @@ metadata:
     <div class="section-head">
       <h2>Technische Notizen</h2>
     </div>
-    <div class="notes-grid">
-      <div class="flag note">
-        <span class="flag-tag">artikel</span>
-        <h3>MFA einführen, ohne Bestehendes zu zerstören: eine architektonische Überlegung</h3>
-        <p>Die Einführung von MFA ist der erste konkrete Schritt eines Identitätsinfrastruktur-Projekts.</p>
-        <a href="/de/articles/mfa-keycloak-privacyidea" class="flag-link">Artikel lesen →</a>
-      </div>
-      <div class="flag note">
-        <span class="flag-tag">artikel</span>
-        <h3>Warum Nextcloud eine dedizierte Deployment-Rolle statt einer generischen Docker-Rolle braucht</h3>
-        <p>Erfahrungsbericht zur Bereitstellung von Nextcloud in einer mit Ansible und Docker verwalteten Staging-Umgebung.</p>
-        <a href="/de/articles/nextcloud-role-deploiement-dedie" class="flag-link">Artikel lesen →</a>
-      </div>
-      <div class="flag note">
-        <span class="flag-tag">artikel</span>
-        <h3>Warum ich Staging und Produktion auf zwei Proxmox-Knoten getrennt habe</h3>
-        <p>Wie eine selbstgehostete Plattform von einem einzigen Proxmox-Knoten zu einer zwischen Staging und Produktion getrennten Infrastruktur wechselte.</p>
-        <a href="/de/articles/proxmox-staging-production" class="flag-link">Artikel lesen →</a>
-      </div>
-    </div>
+    <!-- notes-techniques:latest-articles -->
   </div>
 </section>
 

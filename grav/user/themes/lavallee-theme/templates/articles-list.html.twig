@@ -1,0 +1,32 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block body_class %}accent-amber{% endblock %}
+
+{% block statusbar_content %}
+  <a href="{{ base_url }}/" class="back"><span class="dot"></span> {{ 'THEME.BACK_HOME'|t }}</a>
+  <div>root@souverainete:~$ ls articles/</div>
+{% endblock %}
+
+{% block footer_suffix %}{{ 'THEME.FOOTER_SUFFIX.NOTES'|t }}{% endblock %}
+
+{% block content %}
+
+  <header class="simple-header">
+    <div class="wrap">
+      <h1>{{ page.title }}</h1>
+      {% if page.header.subtitle %}<p>{{ page.header.subtitle }}</p>{% endif %}
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      {% set articles = page.children.published.order('header.date', 'desc') %}
+      <div class="notes-grid">
+        {% for article in articles %}
+          {% include 'partials/article-card.html.twig' with { article: article } %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

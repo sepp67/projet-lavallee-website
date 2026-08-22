@@ -2,6 +2,7 @@
 title: "Ajouter le MFA sans casser l'existant : une réflexion d'architecte"
 subtitle: La mise en place de l'authentification MFA constitue la première étape concrète d'un projet d'infrastructure d'identité
 published: 22 juin 2026
+date: 2026-06-22
 template: article
 ---
 
