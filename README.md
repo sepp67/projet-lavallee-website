@@ -1,80 +1,138 @@
-# projet-lavallee
+# projet-lavallee-website
 
-**Image applicative Grav pour le site vitrine de Sébastien Lavallée** (consultant infrastructure open source / souveraineté numérique).
+**Grav application image for lavallee.tech, built on the shared `grav-runtime`.**
 
-Ce dépôt contient **uniquement** la couche métier :
-- thème `lavallee-theme`
-- pages (accueil, études de cas, réalisations, articles, mentions légales, contact), en français, anglais et allemand
-- plugin métier `contact` (formulaire de contact)
-- configuration non secrète
+This repository contains the project-specific layer of the lavallee.tech website:
+theme, multilingual content, contact functionality and non-secret configuration.
 
-Il s'appuie sur le socle technique [`grav-runtime`](https://github.com/sepp67/grav-runtime) et sera déployé par le rôle [`ansible-role-grav-site`](https://github.com/sepp67/ansible-role-grav-site), sur le même modèle que [`projet-gites`](https://github.com/sepp67/projet-gites).
+It uses the same runtime and deployment architecture as the other Grav applications
+in the stack.
+
+## Where does it fit?
 
 ```text
-ghcr.io/sepp67/grav-runtime   (socle technique générique)
-        └── projet-lavallee    (ce dépôt : thème, pages, config)
-                └── ansible-role-grav-site   (déploiement, hors de ce dépôt)
+                         grav-runtime
+                              │
+                  ┌───────────┴───────────┐
+                  ▼                       ▼
+            projet-gites       projet-lavallee-website
+                                      ↑
+                                 YOU ARE HERE
+                  │                       │
+                  └───────────┬───────────┘
+                              ▼
+                   ansible-role-grav-site
+                              │
+                              ▼
+                     persistent instance
 ```
 
-Voir [`docs/architecture.md`](docs/architecture.md) pour le détail de cette séparation.
+This repository is a second concrete application of the same architecture used by
+`projet-gites`: the application changes, while the runtime and deployment mechanism
+remain reusable.
 
-## État actuel
+## Responsibilities
 
-Contenu de la maquette statique (`exemple/`) porté en Grav. Le formulaire de
-contact est fonctionnel (plugin `contact`, sur le modèle de celui de
-`projet-gites`) : en développement, sans secret SMTP réel, l'envoi échoue
-proprement (message d'erreur affiché, pas de crash) — voir
-`grav/user/config/plugins/email.yaml` et `docs/architecture.md`. Site
-multilingue (FR/EN/DE, toutes les langues préfixées : `/fr/`, `/en/`, `/de/`
-— voir `grav/user/config/system.yaml` et `grav/user/languages/`). Les slugs
-d'URL ne sont pas traduits par langue (ex. `/en/etudes-de-cas/matrix`, pas
-`/en/case-studies/matrix`) — simplification délibérée pour cette itération.
-Pas encore de dépôt Git initialisé, pas de publication GHCR, pas de
-déploiement réel — voir la fin de ce README.
+### What it does
 
-## Prérequis
+- Provides the `lavallee-theme` Grav theme.
+- Provides the lavallee.tech website content.
+- Provides French, English and German versions of the website.
+- Provides the project-specific `contact` plugin.
+- Provides non-secret Grav configuration.
+- Provides the initial content used to seed a new instance.
+- Builds a deployable application image derived from `grav-runtime`.
+- Provides automated application and persistence tests.
 
-- Docker et Docker Compose (v2).
+### What it does not do
 
-## Build local
+- Does not provide or maintain PHP.
+- Does not provide or maintain Nginx.
+- Does not provide Grav Core.
+- Does not contain production SMTP secrets.
+- Does not implement production deployment logic.
+- Does not manage persistent production data after initialization.
+- Does not manage DNS, TLS or the reverse proxy.
 
-```bash
-docker build -t projet-lavallee:local .
-```
+Those responsibilities are deliberately separated between `grav-runtime`,
+`ansible-role-grav-site` and the surrounding infrastructure.
 
-## Développement local
+## Quick Start
+
+Requirements:
+
+- Docker
+- Docker Compose v2
+
+Start the development environment:
 
 ```bash
 docker compose -f compose.dev.yml up -d --build
+```
 
+Open:
+
+```text
+Site:  http://localhost:8080
+Admin: http://localhost:8080/admin
+```
+
+The development credentials defined in `compose.dev.yml` are disposable and must not
+be used in production.
+
+Stop and remove the local development environment:
+
+```bash
 docker compose -f compose.dev.yml down -v
 ```
-- Site : http://localhost:8080
-- Admin : http://localhost:8080/admin (identifiants de test définis dans `compose.dev.yml`, jetables — voir le fichier)
 
-`compose.dev.yml` est réservé au développement local : il n'est jamais utilisé en
-production, et n'est pas une seconde implémentation du déploiement.
-
-## Tests locaux
+Run the complete local test suite:
 
 ```bash
 sh tests/run-all.sh
 ```
 
-- `test-build.sh` — l'image se construit.
-- `test-startup.sh` — le conteneur démarre, passe `healthy`, la page d'accueil répond en 200.
-- `test-app-presence.sh` — le thème et le plugin `contact` sont actifs, le contenu initial est seedé, toutes les pages internes répondent en français **et** en anglais/allemand (formulaire de contact compris), le sélecteur de langue est cohérent, l'admin est accessible.
-- `test-persistence.sh` — le contenu écrit dans les volumes survit à un redémarrage du conteneur.
+## Tested & Supported
 
-## Pour aller plus loin
-
-| Document | Contenu |
+| Component | Support |
 |---|---|
-| [`docs/architecture.md`](docs/architecture.md) | Vue d'ensemble des trois couches (runtime / image applicative / déploiement) |
+| Base runtime | `grav-runtime` |
+| Deployment | `ansible-role-grav-site` |
+| Local runtime | Docker + Docker Compose v2 |
+| Languages | French / English / German |
+| Application packaging | Docker image |
+| Container registry | GHCR |
+| Versioning | Explicit release tags |
 
-## Ce qui n'est pas encore fait
+The automated tests cover:
 
-- Secret SMTP réel pour l'envoi effectif des e-mails de contact (`grav/user/config/email-private.php`, jamais commité — voir `plugins.email.mailer.smtp.*`).
-- `git init` du dépôt, publication GHCR, workflows CI/CD activés (`.github/workflows/` est scaffoldé mais inerte sans dépôt Git).
-- Déploiement réel via `ansible-role-grav-site`.
-- Documentation complète façon `projet-gites/docs/` (compatibility-policy, seed-lifecycle, secrets-and-config, release-and-rollback…), à étoffer si ce projet en a besoin.
+- image build;
+- container startup and health;
+- application/theme/plugin presence;
+- multilingual routes;
+- contact form presence;
+- persistence across container restarts.
+
+The production application image is published as:
+
+```text
+ghcr.io/sepp67/projet-lavallee
+```
+
+Production deployments should always reference an explicit version.
+
+## Documentation & Related Components
+
+Full documentation:
+
+**https://docs.lavallee.tech/grav-stack/applications/projet-lavallee/**
+
+Related repositories:
+
+- [`grav-runtime`](https://github.com/sepp67/grav-runtime) — shared Grav runtime.
+- [`projet-gites`](https://github.com/sepp67/projet-gites) — another application built on the same architecture.
+- [`ansible-role-grav-site`](https://github.com/sepp67/ansible-role-grav-site) — reusable deployment role.
+
+## License
+
+MIT
