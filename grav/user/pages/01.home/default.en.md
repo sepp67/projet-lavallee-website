@@ -2,14 +2,14 @@
 title: Home
 template: homepage
 metadata:
-  description: "I design and industrialize open source infrastructure — communication, files, mobile devices — for companies, associations and public bodies who want to take back control of their digital tools."
+  description: "I design, deploy and maintain reproducible Linux infrastructure built on open source technologies, with digital sovereignty as a design principle."
 ---
 
 <section class="hero">
   <div class="wrap">
     <div class="eyebrow">open source infrastructure consultant</div>
     <h1>Digital sovereignty, deployed with method.</h1>
-    <p class="hero-sub">I design and industrialize open source infrastructure — communication, files, mobile devices — for companies, associations and public bodies who want to take back control of their digital tools, without depending on Google, Microsoft or Slack.</p>
+    <p class="hero-sub">I design, deploy and maintain reproducible Linux infrastructure — communication, files, mobile devices — for organizations that want to take back control of their digital tools, without depending on a single vendor.</p>
     <div class="cta-row">
       <a href="#flagships" class="btn btn-primary btn-lg">See my flagship projects →</a>
       <a href="#contact" class="btn btn-ghost btn-lg">Get in touch</a>
@@ -61,6 +61,47 @@ metadata:
   </div>
 </section>
 
+<section id="ce-que-je-fais">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// what i do</span>
+      <h2>The full lifecycle of a service</h2>
+      <p>I work across the whole chain: architecture, deployment, automation, updates, monitoring and incident response.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-item">
+        <span class="key">expertise.01</span>
+        <h4>Linux administration</h4>
+        <p>Installation, configuration, operations, updates, diagnostics and incident response in production. The goal: infrastructure that stays observable, documented and operable over time.</p>
+        <div class="pill-tags"><span>Debian</span><span>Ubuntu</span><span>Networking</span><span>System services</span><span>Troubleshooting</span></div>
+      </div>
+
+      <div class="skill-item">
+        <span class="key">expertise.02</span>
+        <h4>Automation & deployment</h4>
+        <div class="flow">deploy → update → rollback → migrate</div>
+        <p>Ansible describes the expected state of the machines, Docker controls the application environment, Git makes it possible to know exactly what's deployed.</p>
+        <div class="pill-tags"><span>Ansible</span><span>Docker</span><span>Docker Compose</span><span>Git</span><span>CI/CD</span></div>
+      </div>
+
+      <div class="skill-item">
+        <span class="key">expertise.03</span>
+        <h4>Infrastructure architecture</h4>
+        <p>Separating responsibilities rather than building monolithic systems: runtime, application, persistent data, secrets, reverse proxy and deployment don't share the same lifecycle.</p>
+        <div class="pill-tags"><span>Architecture</span><span>Reproducibility</span><span>Idempotence</span><span>Lifecycle management</span></div>
+      </div>
+
+      <div class="skill-item">
+        <span class="key">expertise.04</span>
+        <h4>Identity & security</h4>
+        <p>Environments combining MFA, RADIUS, LDAP/Active Directory and identity federation. Secrets management, privilege limitation, separation of responsibilities.</p>
+        <div class="pill-tags"><span>IAM</span><span>MFA</span><span>privacyIDEA</span><span>RADIUS</span><span>LDAP/AD</span><span>Keycloak</span><span>OIDC</span><span>SAML</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="flagships">
   <div class="wrap">
     <div class="section-head">
@@ -88,6 +129,39 @@ metadata:
         <a href="/en/etudes-de-cas/grav" class="flag-link">See the Grav CMS case study →</a>
       </div>
       <div class="flag-note">// Matrix and mobile fleet combine naturally: an organization that adopts Matrix for its communication often follows up, shortly after, with a fleet of sovereign devices to carry it everywhere.</div>
+    </div>
+  </div>
+</section>
+
+<section id="souverainete">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// architecture principle</span>
+      <h2>Digital sovereignty as an architecture principle</h2>
+      <p>Digital sovereignty doesn't just mean replacing proprietary software with open source software. An organization is only truly in control of its infrastructure if it can understand how it works, know where its data lives, back it up, rebuild it, and evolve it without depending on a single vendor.</p>
+    </div>
+
+    <div class="enjeux">
+      <div class="enjeu">
+        <span class="k">01 · control</span>
+        <p>Critical data and components stay under the organization's control.</p>
+      </div>
+      <div class="enjeu">
+        <span class="k">02 · reversibility</span>
+        <p>Infrastructure must be rebuildable, migratable or replaceable without artificial dependency on a provider.</p>
+      </div>
+      <div class="enjeu">
+        <span class="k">03 · reproducibility</span>
+        <p>Important configuration shouldn't depend on manual steps that can't be reproduced.</p>
+      </div>
+      <div class="enjeu">
+        <span class="k">04 · maintainability</span>
+        <p>The infrastructure must remain operable by someone other than the person who built it.</p>
+      </div>
+    </div>
+
+    <div class="result-banner" style="margin-top:32px;">
+      <p>“Open source is a means. Control of the system is the goal.”</p>
     </div>
   </div>
 </section>
@@ -121,8 +195,8 @@ metadata:
     <div class="method">
       <div class="method-item">
         <span class="key">principle.01</span>
-        <h4>Each building block does one thing</h4>
-        <p>I always separate the application role, the deployment, and the shared infrastructure. I can replace one component without breaking the rest.</p>
+        <h4>Understand before automating</h4>
+        <p>I identify the components, their responsibilities, their dependencies and their lifecycles. Automation comes after — never before.</p>
       </div>
       <div class="method-item">
         <span class="key">principle.02</span>
@@ -131,15 +205,16 @@ metadata:
       </div>
       <div class="method-item">
         <span class="key">principle.03</span>
-        <h4>No secret ever sits in plain text</h4>
-        <p>Passwords, tokens, certificates: always encrypted, never committed to a code repository in plain text.</p>
+        <h4>Separate code, configuration, secrets and data</h4>
+        <p>These elements don't share the same function, the same lifecycle, or the same security requirements. No secret ever sits in plain text.</p>
       </div>
       <div class="method-item">
         <span class="key">principle.04</span>
-        <h4>I only sell what I actually master</h4>
-        <p>If a piece falls outside my real scope, I say so clearly — rather than improvising as an expert on a subject I don't fully master.</p>
+        <h4>Design for operations</h4>
+        <p>A system doesn't stop at the first <code>docker compose up</code>. Updates, rollback, backups, monitoring and diagnostics are designed in from the start.</p>
       </div>
     </div>
+    <div class="flag-note">// Document to hand off: infrastructure that only its author understands is a liability. Documentation is part of the technical product delivered.</div>
   </div>
 </section>
 

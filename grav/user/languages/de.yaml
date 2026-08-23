@@ -1,6 +1,7 @@
 THEME:
   TAGLINE: "Open Source Infrastrukturen"
   NAV:
+    WHAT_I_DO: "Was ich mache"
     EXPERTISE: "Kompetenzbereiche"
     NOTES: "Technische Notizen"
     METHOD: "Methode"
@@ -31,3 +32,4 @@ THEME:
   HOME_CTA:
     TITLE: "Ein Projekt für digitale Souveränität im Kopf?"
     TEXT: "Ob es darum geht, ein proprietäres Abonnement zu verlassen, eine Flotte souveräner Endgeräte auszurollen, oder Ordnung in eine ohne Plan gewachsene Infrastruktur zu bringen — lassen Sie uns darüber sprechen."
+    ROLES: "Linux System Administrator · DevOps / Infrastructure Engineer · Berater für Infrastruktur"

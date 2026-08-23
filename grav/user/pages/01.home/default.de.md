@@ -2,14 +2,14 @@
 title: Startseite
 template: homepage
 metadata:
-  description: "Ich konzipiere und industrialisiere Open-Source-Infrastrukturen — Kommunikation, Dateien, mobile Endgeräte — für Unternehmen, Vereine und öffentliche Einrichtungen, die wieder die Kontrolle über ihre digitalen Werkzeuge übernehmen wollen."
+  description: "Ich konzipiere, betreibe und pflege reproduzierbare Linux-Infrastrukturen auf Basis von Open-Source-Technologien, mit digitaler Souveränität als Gestaltungsprinzip."
 ---
 
 <section class="hero">
   <div class="wrap">
     <div class="eyebrow">berater für open-source-infrastruktur</div>
     <h1>Digitale Souveränität, mit Methode umgesetzt.</h1>
-    <p class="hero-sub">Ich konzipiere und industrialisiere Open-Source-Infrastrukturen — Kommunikation, Dateien, mobile Endgeräte — für Unternehmen, Vereine und öffentliche Einrichtungen, die wieder die Kontrolle über ihre digitalen Werkzeuge übernehmen wollen, ohne von Google, Microsoft oder Slack abhängig zu sein.</p>
+    <p class="hero-sub">Ich konzipiere, betreibe und pflege reproduzierbare Linux-Infrastrukturen — Kommunikation, Dateien, mobile Endgeräte — für Organisationen, die wieder die Kontrolle über ihre digitalen Werkzeuge übernehmen wollen, ohne von einem einzigen Anbieter abhängig zu sein.</p>
     <div class="cta-row">
       <a href="#flagships" class="btn btn-primary btn-lg">Meine Leuchtturmprojekte ansehen →</a>
       <a href="#contact" class="btn btn-ghost btn-lg">Kontakt aufnehmen</a>
@@ -61,6 +61,47 @@ metadata:
   </div>
 </section>
 
+<section id="ce-que-je-fais">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// was ich mache</span>
+      <h2>Der vollständige Lebenszyklus eines Dienstes</h2>
+      <p>Ich decke die gesamte Kette ab: Architektur, Deployment, Automatisierung, Updates, Monitoring und Störungsbehebung.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-item">
+        <span class="key">expertise.01</span>
+        <h4>Linux-Administration</h4>
+        <p>Installation, Konfiguration, Betrieb, Updates, Diagnose und Störungsbehebung in Produktion. Das Ziel: eine Infrastruktur, die dauerhaft beobachtbar, dokumentiert und betreibbar bleibt.</p>
+        <div class="pill-tags"><span>Debian</span><span>Ubuntu</span><span>Netzwerk</span><span>Systemdienste</span><span>Troubleshooting</span></div>
+      </div>
+
+      <div class="skill-item">
+        <span class="key">expertise.02</span>
+        <h4>Automatisierung & Deployment</h4>
+        <div class="flow">deploy → update → rollback → migrate</div>
+        <p>Ansible beschreibt den erwarteten Zustand der Maschinen, Docker kontrolliert die Anwendungsumgebung, Git macht nachvollziehbar, was genau bereitgestellt ist.</p>
+        <div class="pill-tags"><span>Ansible</span><span>Docker</span><span>Docker Compose</span><span>Git</span><span>CI/CD</span></div>
+      </div>
+
+      <div class="skill-item">
+        <span class="key">expertise.03</span>
+        <h4>Infrastruktur-Architektur</h4>
+        <p>Zuständigkeiten trennen statt monolithische Systeme bauen: Runtime, Anwendung, persistente Daten, Secrets, Reverse Proxy und Deployment folgen nicht demselben Lebenszyklus.</p>
+        <div class="pill-tags"><span>Architektur</span><span>Reproduzierbarkeit</span><span>Idempotenz</span><span>Lifecycle-Management</span></div>
+      </div>
+
+      <div class="skill-item">
+        <span class="key">expertise.04</span>
+        <h4>Identität & Sicherheit</h4>
+        <p>Umgebungen mit MFA, RADIUS, LDAP/Active Directory und Identitätsföderation. Secrets-Management, Rechtebeschränkung, Trennung der Zuständigkeiten.</p>
+        <div class="pill-tags"><span>IAM</span><span>MFA</span><span>privacyIDEA</span><span>RADIUS</span><span>LDAP/AD</span><span>Keycloak</span><span>OIDC</span><span>SAML</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="flagships">
   <div class="wrap">
     <div class="section-head">
@@ -88,6 +129,39 @@ metadata:
         <a href="/de/etudes-de-cas/grav" class="flag-link">Fallstudie Grav CMS ansehen →</a>
       </div>
       <div class="flag-note">// Matrix und mobile Flotte lassen sich natürlich kombinieren: eine Organisation, die Matrix für ihre Kommunikation einführt, folgt oft kurz darauf mit einer Flotte souveräner Endgeräte, um sie überallhin mitzunehmen.</div>
+    </div>
+  </div>
+</section>
+
+<section id="souverainete">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">// architekturprinzip</span>
+      <h2>Digitale Souveränität als Architekturprinzip</h2>
+      <p>Digitale Souveränität bedeutet nicht einfach, proprietäre Software durch Open-Source-Software zu ersetzen. Eine Organisation beherrscht ihre Infrastruktur nur dann wirklich, wenn sie verstehen kann, wie diese funktioniert, weiß, wo ihre Daten liegen, sie sichern, wiederherstellen und weiterentwickeln kann, ohne von einem einzigen Anbieter abhängig zu sein.</p>
+    </div>
+
+    <div class="enjeux">
+      <div class="enjeu">
+        <span class="k">01 · Beherrschung</span>
+        <p>Kritische Daten und Komponenten bleiben unter der Kontrolle der Organisation.</p>
+      </div>
+      <div class="enjeu">
+        <span class="k">02 · Reversibilität</span>
+        <p>Eine Infrastruktur muss sich ohne künstliche Abhängigkeit von einem Anbieter wiederherstellen, migrieren oder ersetzen lassen.</p>
+      </div>
+      <div class="enjeu">
+        <span class="k">03 · Reproduzierbarkeit</span>
+        <p>Eine wichtige Konfiguration sollte nicht von manuellen, nicht wiederholbaren Eingriffen abhängen.</p>
+      </div>
+      <div class="enjeu">
+        <span class="k">04 · Wartbarkeit</span>
+        <p>Die Infrastruktur muss auch von jemand anderem als ihrem Erbauer betrieben werden können.</p>
+      </div>
+    </div>
+
+    <div class="result-banner" style="margin-top:32px;">
+      <p>„Open Source ist ein Mittel. Die Beherrschung des Systems ist das Ziel.“</p>
     </div>
   </div>
 </section>
@@ -121,8 +195,8 @@ metadata:
     <div class="method">
       <div class="method-item">
         <span class="key">prinzip.01</span>
-        <h4>Jede Komponente macht genau eine Sache</h4>
-        <p>Ich trenne stets die Anwendungsrolle, das Deployment und die gemeinsame Infrastruktur. Ich kann eine Komponente ersetzen, ohne den Rest zu beschädigen.</p>
+        <h4>Verstehen, bevor automatisiert wird</h4>
+        <p>Ich identifiziere die Komponenten, ihre Zuständigkeiten, ihre Abhängigkeiten und ihre Lebenszyklen. Die Automatisierung kommt danach — nie davor.</p>
       </div>
       <div class="method-item">
         <span class="key">prinzip.02</span>
@@ -131,15 +205,16 @@ metadata:
       </div>
       <div class="method-item">
         <span class="key">prinzip.03</span>
-        <h4>Kein Geheimnis liegt im Klartext</h4>
-        <p>Passwörter, Tokens, Zertifikate: immer verschlüsselt, nie im Klartext in einem Code-Repository committet.</p>
+        <h4>Code, Konfiguration, Secrets und Daten trennen</h4>
+        <p>Diese Elemente haben weder dieselbe Funktion noch denselben Lebenszyklus noch dieselben Sicherheitsanforderungen. Kein Geheimnis liegt jemals im Klartext.</p>
       </div>
       <div class="method-item">
         <span class="key">prinzip.04</span>
-        <h4>Ich verkaufe nur, was ich wirklich beherrsche</h4>
-        <p>Wenn ein Baustein außerhalb meines tatsächlichen Kompetenzbereichs liegt, sage ich das klar — statt mich als Experte für ein Thema auszugeben, das ich nicht zu 100 % beherrsche.</p>
+        <h4>Für den Betrieb konzipieren</h4>
+        <p>Ein System endet nicht beim ersten <code>docker compose up</code>. Updates, Rollback, Backups, Monitoring und Diagnose werden von Anfang an mitgedacht.</p>
       </div>
     </div>
+    <div class="flag-note">// Dokumentieren, um weiterzugeben: eine Infrastruktur, die nur ihr Autor versteht, ist eine Abhängigkeit. Dokumentation ist Teil des gelieferten technischen Produkts.</div>
   </div>
 </section>
 
