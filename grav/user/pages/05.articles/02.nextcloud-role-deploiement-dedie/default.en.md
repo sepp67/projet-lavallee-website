@@ -1,7 +1,7 @@
 ---
 title: Why Nextcloud needs a dedicated deployment role rather than a generic Docker role
 subtitle: A field report on deploying Nextcloud in a staging environment managed with Ansible and Docker.
-published: June 8, 2026
+published_label: June 8, 2026
 date: 2026-06-08
 template: article
 ---

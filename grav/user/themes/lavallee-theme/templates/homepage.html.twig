@@ -7,7 +7,9 @@
 
 {% block content %}
   {% set articles_page = page.find('/articles') %}
-  {% set latest_articles = articles_page.children.published.order('header.date', 'desc')|slice(0, 3) %}
+  {% set latest_articles = articles_page.children.published
+    |sort((a, b) => (b.header.date ? b.header.date|date('U') : 0) <=> (a.header.date ? a.header.date|date('U') : 0))
+    |slice(0, 3) %}
   {% set notes_techniques %}
     <div class="notes-grid">
       {% for article in latest_articles %}

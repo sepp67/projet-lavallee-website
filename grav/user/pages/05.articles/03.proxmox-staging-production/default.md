@@ -1,7 +1,7 @@
 ---
 title: Pourquoi j'ai séparé le staging et la production sur deux nœuds Proxmox
 subtitle: Comment une plateforme auto-hébergée est passée d'un unique nœud Proxmox à une infrastructure séparée entre staging et production.
-published: 2 juin 2026
+published_label: 2 juin 2026
 date: 2026-06-02
 template: article
 ---

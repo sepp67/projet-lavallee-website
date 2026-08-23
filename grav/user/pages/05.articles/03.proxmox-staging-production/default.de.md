@@ -1,7 +1,7 @@
 ---
 title: Warum ich Staging und Produktion auf zwei Proxmox-Knoten getrennt habe
 subtitle: Wie eine selbstgehostete Plattform von einem einzigen Proxmox-Knoten zu einer zwischen Staging und Produktion getrennten Infrastruktur wechselte.
-published: 2. Juni 2026
+published_label: 2. Juni 2026
 date: 2026-06-02
 template: article
 ---

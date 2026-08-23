@@ -20,7 +20,8 @@
 
   <section>
     <div class="wrap">
-      {% set articles = page.children.published.order('header.date', 'desc') %}
+      {% set articles = page.children.published
+        |sort((a, b) => (b.header.date ? b.header.date|date('U') : 0) <=> (a.header.date ? a.header.date|date('U') : 0)) %}
       <div class="notes-grid">
         {% for article in articles %}
           {% include 'partials/article-card.html.twig' with { article: article } %}

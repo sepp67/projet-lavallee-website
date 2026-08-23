@@ -41,7 +41,7 @@ html="$(curl -s "http://localhost:$PORT/fr")"
 echo "$html" | grep -q "souveraineté numérique" || fail "marqueur de contenu absent du rendu de la page d'accueil"
 
 log "pages internes répondent (fr)"
-for path in /etudes-de-cas/matrix /etudes-de-cas/flotte-mobile /etudes-de-cas/grav /realisations/facturation /mentions-legales /articles /articles/mfa-keycloak-privacyidea /articles/nextcloud-role-deploiement-dedie /articles/proxmox-staging-production /contact /contact/confirmation; do
+for path in /etudes-de-cas/matrix /etudes-de-cas/flotte-mobile /etudes-de-cas/grav /realisations/facturation /mentions-legales /articles /articles/mfa-keycloak-privacyidea /articles/nextcloud-role-deploiement-dedie /articles/proxmox-staging-production /articles/grav-plateforme-de-deploiement-reutilisable /contact /contact/confirmation; do
   status="$(http_status "http://localhost:$PORT/fr$path")"
   [ "$status" = "200" ] || fail "/fr$path : attendu 200, obtenu $status"
 done
@@ -52,7 +52,7 @@ echo "$en_home" | grep -q "Digital sovereignty" || fail "marqueur de contenu ang
 de_home="$(curl -s "http://localhost:$PORT/de")"
 echo "$de_home" | grep -q "Digitale Souveränität" || fail "marqueur de contenu allemand absent du rendu de /de"
 for lang in en de; do
-  for path in /etudes-de-cas/matrix /etudes-de-cas/flotte-mobile /etudes-de-cas/grav /realisations/facturation /mentions-legales /articles /articles/mfa-keycloak-privacyidea /articles/nextcloud-role-deploiement-dedie /articles/proxmox-staging-production /contact /contact/confirmation; do
+  for path in /etudes-de-cas/matrix /etudes-de-cas/flotte-mobile /etudes-de-cas/grav /realisations/facturation /mentions-legales /articles /articles/mfa-keycloak-privacyidea /articles/nextcloud-role-deploiement-dedie /articles/proxmox-staging-production /articles/grav-plateforme-de-deploiement-reutilisable /contact /contact/confirmation; do
     status="$(http_status "http://localhost:$PORT/$lang$path")"
     [ "$status" = "200" ] || fail "/$lang$path : attendu 200, obtenu $status"
   done

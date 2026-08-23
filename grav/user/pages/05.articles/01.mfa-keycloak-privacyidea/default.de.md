@@ -1,7 +1,7 @@
 ---
 title: "MFA einführen, ohne Bestehendes zu zerstören: eine architektonische Überlegung"
 subtitle: Die Einführung von MFA ist der erste konkrete Schritt eines Identitätsinfrastruktur-Projekts
-published: 22. Juni 2026
+published_label: 22. Juni 2026
 date: 2026-06-22
 template: article
 ---
