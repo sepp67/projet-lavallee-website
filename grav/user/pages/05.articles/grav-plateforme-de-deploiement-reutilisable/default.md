@@ -1,9 +1,10 @@
 ---
 title: "Du déploiement d'un site web à la conception d'une plateforme de déploiement réutilisable."
 subtitle: "Ce qu'un simple déploiement de Grav CMS m'a appris sur la persistance, les cycles de vie et la conception d'architectures maintenables."
-published_label: 23 août 2026
+published_label: '23 août 2026'
 template: article
 date: '23-08-2026 12:00'
+published: true
 ---
 
 Beaucoup d'architectures techniques ne naissent pas sur un tableau blanc.

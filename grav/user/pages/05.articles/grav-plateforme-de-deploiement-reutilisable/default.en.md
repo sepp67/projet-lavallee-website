@@ -2,7 +2,7 @@
 title: 'From Deploying One Website to Designing a Reusable Deployment Platform'
 subtitle: 'What a simple Grav CMS deployment taught me about persistence, lifecycle boundaries, and maintainable architecture.'
 template: article
-published_label: August 23, 2026
+published_label: 'August 23, 2026'
 date: '23-08-2026 12:00'
 ---
 

@@ -1,8 +1,8 @@
 ---
-title: Pourquoi Nextcloud nécessite un rôle de déploiement dédié plutôt qu'un rôle Docker générique
-subtitle: Retour d'expérience sur le déploiement de Nextcloud dans un environnement de staging géré par Ansible et Docker.
-published_label: 8 juin 2026
-date: 2026-06-08
+title: "Pourquoi Nextcloud nécessite un rôle de déploiement dédié plutôt qu'un rôle Docker générique"
+subtitle: "Retour d'expérience sur le déploiement de Nextcloud dans un environnement de staging géré par Ansible et Docker."
+published_label: '22 juin 2026'
+date: 22-06-2026
 template: article
 ---
 

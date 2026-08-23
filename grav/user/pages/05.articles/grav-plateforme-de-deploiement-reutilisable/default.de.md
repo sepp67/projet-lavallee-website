@@ -2,7 +2,7 @@
 title: 'Von der Bereitstellung einer Website zur wiederverwendbaren Deployment-Plattform'
 subtitle: 'Was mich ein zunächst einfacher Grav-CMS-Deploy über Persistenz, Lebenszyklen und wartbare Architekturen gelehrt hat.'
 template: article
-published_label: 23. August 2026
+published_label: '23. August 2026'
 date: '23-08-2026 12:00'
 ---
 

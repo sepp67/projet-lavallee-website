@@ -1,7 +1,7 @@
 ---
 title: "Adding MFA without breaking what's there: an architect's take"
 subtitle: Rolling out MFA is the first concrete step of an identity infrastructure project
-published_label: June 22, 2026
+published: June 22, 2026
 date: 2026-06-22
 template: article
 ---

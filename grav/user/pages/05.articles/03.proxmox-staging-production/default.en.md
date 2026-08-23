@@ -1,8 +1,8 @@
 ---
-title: Why I split staging and production across two Proxmox nodes
-subtitle: How a self-hosted platform moved from a single Proxmox node to infrastructure split between staging and production.
-published_label: June 2, 2026
-date: 2026-06-02
+title: 'Why I split staging and production across two Proxmox nodes'
+subtitle: 'How a self-hosted platform moved from a single Proxmox node to infrastructure split between staging and production.'
+published_label: 'June 2, 2026'
+date: 06-02-2026
 template: article
 ---
 

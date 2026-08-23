@@ -1,9 +1,10 @@
 ---
-title: Pourquoi j'ai séparé le staging et la production sur deux nœuds Proxmox
-subtitle: Comment une plateforme auto-hébergée est passée d'un unique nœud Proxmox à une infrastructure séparée entre staging et production.
-published_label: 2 juin 2026
-date: 2026-06-02
+title: "Pourquoi j'ai séparé le staging et la production sur deux nœuds Proxmox"
+subtitle: "Comment une plateforme auto-hébergée est passée d'un unique nœud Proxmox à une infrastructure séparée entre staging et production."
+published_label: '2 juin 2026'
+date: 06-02-2026
 template: article
+published: true
 ---
 
 Lorsque j'ai acheté le nom de domaine **lavallee.tech** en 2021, mon objectif était simple : apprendre, expérimenter et héberger quelques services pour des associations locales. À l'époque, un unique nœud Proxmox installé sur un Dell OptiPlex d'occasion était largement suffisant. J'y ai déployé quelques machines virtuelles YunoHost, hébergé plusieurs sites web et fourni des services cloud et de messagerie à différentes associations. Cinq ans plus tard, l'infrastructure a beaucoup évolué. Ce qui avait commencé comme un petit projet d'auto-hébergement est progressivement devenu une plateforme hébergeant des services en production, des environnements de développement, des systèmes de supervision et des applications personnalisées. Cette croissance m'a finalement obligé à repenser complètement l'architecture.
