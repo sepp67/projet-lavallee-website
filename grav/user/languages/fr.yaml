@@ -30,6 +30,6 @@ THEME:
     TITLE: "Contact"
   BACK_HOME: "← retour à l'accueil"
   HOME_CTA:
-    TITLE: "Un projet de souveraineté numérique en tête ?"
-    TEXT: "Que ce soit pour sortir d'un abonnement propriétaire, déployer une flotte de terminaux maîtrisés, ou remettre de l'ordre dans une infra qui a grandi sans plan — parlons-en."
+    TITLE: "Vous recherchez un profil Linux / Infrastructure ?"
+    TEXT: "Que vous souhaitiez automatiser une infrastructure Linux, fiabiliser des déploiements, reprendre la maîtrise de services open source ou sortir d'une dépendance propriétaire, parlons de vos contraintes."
     ROLES: "Linux System Administrator · DevOps / Infrastructure Engineer · Consultant infrastructure"

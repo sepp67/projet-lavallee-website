@@ -200,7 +200,7 @@ metadata:
       </div>
       <div class="method-item">
         <span class="key">principe.02</span>
-        <h4>Rien n'est fait deux fois de la même manière</h4>
+        <h4>Automatiser ce qui doit être reproductible</h4>
         <p>Chaque déploiement est automatisé et rejouable à l'identique — sur un nouveau serveur, en cas de panne, ou pour dupliquer une installation.</p>
       </div>
       <div class="method-item">
