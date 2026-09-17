@@ -1,35 +1,40 @@
-# Instructions locales — projet-lavallee
+# Instructions locales — projet-lavallee-website
 
-Lire d’abord le fichier `../CLAUDE.md`.
+Avant toute action, lire le fichier `../CLAUDE.md`.
 
-Ce dépôt produit l’image applicative du site lavallee.tech.
+Ce dépôt produit l'image applicative du site `lavallee.tech` à partir de
+`grav-runtime`. Il constitue une application indépendante de `projet-gites`.
 
-Il hérite de `grav-runtime` et constitue une application distincte de `projet-gites`.
+## Invariants locaux
 
-Conserver dans ce dépôt :
+- maintenir le thème `lavallee-theme` ;
+- maintenir le plugin de contact propre au site ;
+- préserver le contenu multilingue en français, anglais et allemand ;
+- conserver dans l'image les pages initiales, les modèles, la logique métier et
+  la configuration publique ;
+- préserver la séparation entre image applicative et contenu persistant de
+  production ;
+- tester les comportements applicatifs et la persistance.
 
-- thème `lavallee-theme` ;
-- plugin de contact spécifique au site ;
-- contenu multilingue en français, anglais et allemand ;
-- pages seed ;
-- configuration publique ;
-- modèles et logique métier ;
-- tests applicatifs et de persistance.
+Toute évolution commune avec `projet-gites` doit préserver l'indépendance des
+deux applications. Une fonction réellement générique doit être placée dans
+`grav-runtime` ou `ansible-role-grav-site`, selon sa responsabilité.
 
-Ne jamais intégrer :
+## Avant une modification
 
-- comptes réels ;
-- secrets SMTP ou autres secrets de production ;
-- volumes et données persistantes d’une instance ;
-- logique générique de `grav-runtime` ;
-- logique de déploiement Ansible.
-
-Avant toute modification, consulter :
+Consulter au minimum :
 
 - `README.md` ;
 - `docs/architecture.md` ;
 - `Dockerfile` ;
 - `compose.dev.yml` ;
-- les tests dans `tests/`.
+- `tests/`.
 
-Toute évolution commune avec `projet-gites` doit préserver l’indépendance des deux applications et maintenir les responsabilités partagées dans `grav-runtime` ou `ansible-role-grav-site`.
+## Contrôles spécifiques
+
+- construction de l'image applicative ;
+- validation des variantes française, anglaise et allemande ;
+- tests du thème et du plugin de contact ;
+- tests de persistance ;
+- vérification qu'aucun compte réel, secret SMTP ou donnée de production
+  n'entre dans l'image.

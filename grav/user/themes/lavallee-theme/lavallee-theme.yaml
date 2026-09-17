@@ -2,5 +2,6 @@ name: Lavallée Theme
 version: 0.1.0
 description: >
   Thème autonome (n'hérite pas de quark2) : design "terminal" entièrement
-  personnalisé, repris de 5-projet-lavallee/exemple/*.html. Toute la mise en
-  page vit dans ce thème — voir css/custom.css et templates/partials/base.html.twig.
+  personnalisé, inspiré des modèles HTML historiques du site Lavallée. Toute
+  la mise en page vit dans ce thème — voir css/custom.css et
+  templates/partials/base.html.twig.
