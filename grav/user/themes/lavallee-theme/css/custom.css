@@ -1,7 +1,7 @@
 /*
  * lavallee-theme — feuille de style unique.
- * Fusionne les 3 maquettes statiques de 5-projet-lavallee/exemple/
- * (index.html, etude-de-cas-matrix.html, etude-de-cas-flotte-mobile.html).
+ * Fusionne trois maquettes HTML historiques du site Lavallée :
+ * index.html, etude-de-cas-matrix.html et etude-de-cas-flotte-mobile.html.
  * Les couleurs "accent" (amber par défaut, blue pour la flotte mobile) sont
  * factorisées via des custom properties portées par une classe sur <body>
  * (voir partials/base.html.twig), plutôt que dupliquées par fichier.
